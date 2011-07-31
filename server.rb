@@ -8,7 +8,7 @@ require 'erb'
 
 get "/xbox/:text" do
   content_type 'image/png'
-  achievement(params[:header] || 'ACHIEVEMENT ULOCKED', params[:text]).to_blob
+  achievement(params[:header] || 'ACHIEVEMENT UNLOCKED', params[:text]).to_blob
 end
 
 get "/" do
