@@ -23,8 +23,32 @@ def achievement(first_line, second_line, gravatar = nil)
   draw.fill("#5D5F5E")
   draw.circle(33,33, 33,60)
 
-  draw.fill("#1B1D1A")
+  odraw = Magick::Draw.new
+  mdraw = Magick::Draw.new
+  overlay = Magick::Image.new(423, 67)
+  mask = Magick::Image.new(423, 67)
+
+  odraw.fill("#6BBC6F")
+  odraw.rectangle(0,0,423,67)
+  odraw.draw(overlay)
   
+  mdraw.fill("rgba(0,0,0,255)")
+  mdraw.rectangle(0, 0, 423,67)
+  mdraw.fill("rgba(255,255,255,255)")
+  mdraw.circle(33,33, 33,60)
+  mdraw.fill("rgba(0,0,0,255)")
+  mdraw.rectangle(33, 0, 423,67)
+  mdraw.rectangle(0, 33, 423,67)
+  
+  mdraw.draw(mask)
+  
+  mask.matte = false
+  overlay.matte = true
+  overlay.composite!(mask, 0, 0, Magick::CopyOpacityCompositeOp)
+  draw.composite(0, 0, 423, 67, overlay)
+
+
+  draw.fill("#1B1D1A")  
   draw.rectangle(30, 6, 36,60)
   draw.rectangle(6, 30, 60,36)
   draw.circle(33,33, 33,54)
