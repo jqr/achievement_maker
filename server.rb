@@ -11,7 +11,7 @@ require 'erb'
 get "/xbox/:text" do
   content_type 'image/png'
   response['Cache-Control'] = "public, max-age=#{60*24*7}" # cache for one week
-  achievement(params[:header] || 'ACHIEVEMENT UNLOCKED', params[:text].to_s.sub(/\.(jpeg|jpg|png|gif)$/i, '')).to_blob
+  achievement(params[:header] || 'ACHIEVEMENT UNLOCKED', params[:text], params[:email]).to_blob
 end
 
 get "/" do
