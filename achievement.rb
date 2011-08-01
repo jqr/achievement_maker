@@ -41,7 +41,7 @@ def achievement(first_line, second_line, gravatar = nil)
     mdraw.fill("rgba(0,0,0,255)")
     mdraw.rectangle(0, 0, 423,67)
     mdraw.fill("rgba(255,255,255,255)")
-    mdraw.circle(33, 33, 33, 54)
+    mdraw.circle(33, 33, 33, 52)
     mdraw.draw(mask)
     mask.matte = false
     overlay.matte = true
