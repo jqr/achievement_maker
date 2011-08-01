@@ -3,7 +3,7 @@ require 'faraday'
 require 'RMagick'
 
 def gravatar_image(email, dims = 46)
-  client = Faraday::Connection.new(:url => "http://www.gravatar.com/")  
+  client = Faraday::Connection.new(:url => "http://www.gravatar.com/")
   hash = Digest::MD5.hexdigest(email.downcase.strip)
   client.get("/avatar/#{hash}?s=#{dims}&d=mm").body
 end
@@ -31,20 +31,20 @@ def achievement(first_line, second_line, gravatar = nil)
 
   if gravatar && (avatar = gravatar_image(gravatar))
     odraw = Magick::Draw.new
-    mdraw = Magick::Draw.new 
+    mdraw = Magick::Draw.new
     aimg = Magick::Image.from_blob(avatar).first
     overlay = Magick::Image.new(423, 67)
     mask = Magick::Image.new(423, 67)
 
-    odraw.composite(6, 8, 54, 54, aimg) 
-    odraw.draw(overlay) 
+    odraw.composite(6, 8, 54, 54, aimg)
+    odraw.draw(overlay)
     mdraw.fill("rgba(0,0,0,255)")
     mdraw.rectangle(0, 0, 423,67)
     mdraw.fill("rgba(255,255,255,255)")
     mdraw.circle(33, 33, 33, 54)
     mdraw.draw(mask)
     mask.matte = false
-    overlay.matte = true 
+    overlay.matte = true
     overlay.composite!(mask, 0, 0, Magick::CopyOpacityCompositeOp)
     draw.composite(0, 0, 423, 67, overlay)
   end
