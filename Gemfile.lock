@@ -1,8 +1,12 @@
 GEM
   remote: http://rubygems.org/
   specs:
+    addressable (2.2.6)
     daemons (1.1.0)
     eventmachine (0.12.10)
+    faraday (0.4.6)
+      addressable (>= 2.1.1)
+      rack (>= 1.0.1)
     rack (1.3.0)
     rmagick (2.13.1)
     sinatra (1.2.6)
@@ -18,6 +22,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  faraday
   rmagick
   sinatra
   thin
