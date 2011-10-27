@@ -7,8 +7,12 @@ Bundler.setup(:default)
 require './achievement'
 require 'sinatra'
 require 'erb'
+require 'instrumental_agent'
+
+I = Instrumental::Agent.new('7f51dd0b9bdb8a08b978ccbf94509914')
 
 get "/xbox/:text" do
+  I.increment('generate_image')
   content_type 'image/png'
   response['Cache-Control'] = "public, max-age=#{60*24*7}" # cache for one week
   achievement = params[:text].to_s.sub(/\.(jpeg|jpg|png|gif)$/i, '')
@@ -18,5 +22,6 @@ get "/xbox/:text" do
 end
 
 get "/" do
+  I.increment('visit.homepage')
   erb :index
 end
