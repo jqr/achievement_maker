@@ -9,7 +9,7 @@ require 'sinatra'
 require 'erb'
 require 'instrumental_agent'
 
-I = Instrumental::Agent.new('7f51dd0b9bdb8a08b978ccbf94509914')
+I = Instrumental::Agent.new('7f51dd0b9bdb8a08b978ccbf94509914', :start_reactor => false)
 
 get "/xbox/:text" do
   I.increment('generate_image')
