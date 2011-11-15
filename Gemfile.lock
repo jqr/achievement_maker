@@ -1,3 +1,10 @@
+GIT
+  remote: git://github.com/fastestforward/instrumental_agent.git
+  revision: 5fe1bde18528c9e67a9e47cf1af7bad6e00ece5a
+  branch: socket
+  specs:
+    instrumental_agent (0.1.5)
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -8,8 +15,6 @@ GEM
       addressable (~> 2.2.6)
       multipart-post (~> 1.1.3)
       rack (>= 1.1.0, < 2)
-    instrumental_agent (0.1.0)
-      eventmachine
     multipart-post (1.1.3)
     rack (1.3.5)
     rack-protection (1.1.4)
@@ -30,7 +35,7 @@ PLATFORMS
 
 DEPENDENCIES
   faraday
-  instrumental_agent
+  instrumental_agent!
   rmagick
   sinatra
   thin
