@@ -1,4 +1,4 @@
 Achievement Unlocked
 ====================
 
-See http://achievement-unlocked.heroku.com
+Demo http://achievement-maker.com
