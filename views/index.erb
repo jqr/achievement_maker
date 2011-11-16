@@ -1,24 +1,90 @@
+<!DOCTYPE HTML>
 <html>
-<style type="text/css" media="screen">
-  body { margin: 20px auto; width: 700px; }
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+<style type="text/css">
+  .container {
+    margin-top: 45px;
+  }
+  .output {
+    text-align: center;
+    padding: 10px;
+  }
 </style>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js"></script>
+<script type="text/javascript">
+  $(function() {
+    $('#maker').submit(function(e) {
+      e.preventDefault();
+      var url = window.location.origin + "/xbox/" +
+        encodeURIComponent($('#text').val()) +
+        "?header=" + encodeURIComponent($('#header').val()) +
+        "&email=" + encodeURIComponent($('#email').val()) +
+        ".png"; // so Campfire will interpret this as an image
+
+
+      var img = document.createElement('img');
+      img.src = url;
+
+      var a = document.createElement('a');
+      a.href = url;
+      a.target = "_new";
+      $(a).html(img);
+
+      $('.output').html(a);
+    });
+  });
+</script>
 <body>
   <a href="http://github.com/jqr/achievement_unlocked"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://a248.e.akamai.net/assets.github.com/img/30f550e0d38ceb6ef5b81500c64d970b7fb0f028/687474703a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6f72616e67655f6666373630302e706e67" alt="Fork me on GitHub"></a>
 
-  <h1>Make your own achievements by URL</h1>
+  <div class="container">
+    <div class="row">
+      <div class="span2">&nbsp;</div>
+      <div class="span12">
+        <div class="page-header">
+          <h1>Achievement Maker <small>Version 1.0</small></h1>
+        </div>
 
-  <p>
-    <a href="http://achievement-unlocked.heroku.com/xbox/made%20a%20thing">http://achievement-unlocked.heroku.com/xbox/made%20a%20thing</a>
-  </p>
-  <a href="/xbox/made a thing"><img src="/xbox/made a thing" /></a>
+        <form id="maker">
+          <fieldset>
+            <div class="clearfix">
+              <label for="header">Header</label>
+              <div class="input">
+                <input class="xlarge" id="header" name="xlInput" size="30" type="text" value="ACHIEVEMENT UNLOCKED">
+              </div>
+            </div><!-- /clearfix -->
 
-  <p>
-    <a href="http://achievement-unlocked.heroku.com/xbox//xbox/ponies?header=OMG">http://achievement-unlocked.heroku.com/xbox//xbox/ponies?header=OMG</a>
-  </p>
-  <a href="/xbox/ponies?header=OMG"><img src="/xbox/ponies?header=OMG" /></a>
+            <div class="clearfix">
+              <label for="header">Text</label>
+              <div class="input">
+                <input class="xlarge" id="text" name="xlInput" size="30" type="text" value="Did something amazing">
+              </div>
+            </div><!-- /clearfix -->
+            <div class="clearfix">
+              <label for="header"><a href="http://gravatar.com/">Gravatar</a> Email</label>
+              <div class="input">
+                <input class="xlarge" id="email" name="xlInput" size="30" type="text" value="">
+                <span class="help-block">We are not going to spam you.</span>
+              </div>
+            </div><!-- /clearfix -->
+            <div class="actions">
+              <input type="submit" class="btn success" value="Generate">
+            </div>
+          </fieldset>
+        </form>
 
-  <p>
-    Made by <a href="http://github.com/jqr">jqr</a>. Want to add / improve? <a href="http://github.com/jqr/achievement_unlocked">fork this project on github</a>.
-  </p>
+        <div class="output">
+          <a href="/xbox/Made this thing?email=elijah.miller@gmail.com"><img src="/xbox/Made this thing?email=elijah.miller@gmail.com" /></a><br/><br/>
+
+          <a href="/xbox/ponies?header=OMG"><img src="/xbox/ponies?header=OMG" /></a>
+        </div>
+
+
+        <footer>
+          Made by <a href="http://github.com/jqr">jqr</a> and <a href="http://github.com/netshade">netshade</a>. Want to add / improve? <a href="http://github.com/jqr/achievement_unlocked">fork this project on github</a>.
+        </footer>
+      </div>
+    </div>
+  </div>
 </body>
 </html>
