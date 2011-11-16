@@ -17,7 +17,7 @@
     $(function() {
       $('#maker').submit(function(e) {
         e.preventDefault();
-        var url = window.location.origin + "/xbox/" +
+        var url = "/xbox/" +
           encodeURIComponent($('#text').val()) +
           "?header=" + encodeURIComponent($('#header').val()) +
           "&email=" + encodeURIComponent($('#email').val()) +
