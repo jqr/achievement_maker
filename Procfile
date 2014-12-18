@@ -1,1 +1,2 @@
-web: bundle exec ruby server.rb
+web: bundle exec unicorn -p $PORT -E $RACK_ENV
+
