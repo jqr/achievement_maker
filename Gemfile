@@ -6,3 +6,5 @@ gem 'faraday'
 gem 'sinatra'
 gem 'thin'
 gem 'instrumental_agent'
+
+gem "foreman", group: "development"
