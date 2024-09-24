@@ -16,37 +16,35 @@
   <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js"></script>
   <script type="text/javascript">
     $(function() {
-      $('#maker').submit(function(e) {
+      $("#maker").submit(function(e) {
         e.preventDefault();
         var url = "/xbox/" +
-          encodeURIComponent($('#text').val()) +
-          "?header=" + encodeURIComponent($('#header').val()) +
-          "&email=" + encodeURIComponent($('#email').val()) +
+          encodeURIComponent($("#text").val()) +
+          "?header=" + encodeURIComponent($("#header").val()) +
+          "&email=" + encodeURIComponent($("#email").val()) +
           ".png"; // so Campfire will interpret this as an image
 
 
-        var img = document.createElement('img');
+        var img = document.createElement("img");
         img.src = url;
 
-        var a = document.createElement('a');
+        var a = document.createElement("a");
         a.href = url;
         a.target = "_new";
         $(a).html(img);
 
-        $('.output').html(a);
+        $(".output").html(a);
       });
     });
   </script>
 </head>
 <body>
-  <a href="http://github.com/jqr/achievement_maker"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_orange_ff7600.png" alt="Fork me on GitHub"></a>
-
   <div class="container">
     <div class="row">
       <div class="span2">&nbsp;</div>
       <div class="span12">
         <div class="page-header">
-          <h1>Achievement Maker <small>Version 1.0</small></h1>
+          <h1>Achievement Maker <small>Version 1.1</small></h1>
         </div>
 
         <form id="maker">
@@ -68,7 +66,7 @@
               <label for="header"><a href="http://gravatar.com/">Gravatar</a> Email</label>
               <div class="input">
                 <input class="xlarge" id="email" name="xlInput" size="30" type="text" value="">
-                <span class="help-block">We are not going to spam you.</span>
+                <span class="help-block">Not stored.</span>
               </div>
             </div><!-- /clearfix -->
             <div class="actions">
@@ -85,7 +83,7 @@
 
 
         <footer>
-          Made by <a href="http://github.com/jqr">jqr</a> and <a href="http://github.com/netshade">netshade</a>. Want to add / improve? <a href="http://github.com/jqr/achievement_maker">fork this project on github</a>.
+          Made by <a href="http://github.com/jqr">jqr</a> and <a href="http://github.com/netshade">netshade</a>. Want to add / improve? <a href="http://github.com/jqr/achievement_maker">github</a>.
         </footer>
       </div>
     </div>
@@ -93,13 +91,13 @@
   <script type="text/javascript">
     var _gauges = _gauges || [];
     (function() {
-      var t   = document.createElement('script');
-      t.type  = 'text/javascript';
+      var t   = document.createElement("script");
+      t.type  = "text/javascript";
       t.async = true;
-      t.id    = 'gauges-tracker';
-      t.setAttribute('data-site-id', '4f2ec7a7cb25bc1e75000032');
-      t.src = '//secure.gaug.es/track.js';
-      var s = document.getElementsByTagName('script')[0];
+      t.id    = "gauges-tracker";
+      t.setAttribute("data-site-id", "4f2ec7a7cb25bc1e75000032");
+      t.src = "//secure.gaug.es/track.js";
+      var s = document.getElementsByTagName("script")[0];
       s.parentNode.insertBefore(t, s);
     })();
   </script>

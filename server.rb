@@ -4,26 +4,21 @@ require "rubygems"
 require "bundler"
 Bundler.setup(:default)
 
-require './achievement'
-require 'sinatra'
-require 'erb'
-require 'instrumental_agent'
+require "./achievement"
+require "sinatra"
+require "erb"
 
 env = ENV['RACK_ENV'] || 'development'
 
-I = Instrumental::Agent.new('7f51dd0b9bdb8a08b978ccbf94509914', :enabled => env == 'production')
-
 get "/xbox/:text" do
-  I.increment('generate_image')
-  content_type 'image/png'
-  response['Cache-Control'] = "public, max-age=#{60*24*7}" # cache for one week
+  content_type "image/png"
+  response["Cache-Control"] = "public, max-age=#{60*24*7}" # cache for one week
   achievement = params[:text].to_s.sub(/\.(jpeg|jpg|png|gif)$/i, '')
-  header = (params[:header] || 'ACHIEVEMENT UNLOCKED').to_s.sub(/\.(jpeg|jpg|png|gif)$/i, '')
+  header = (params[:header] || "ACHIEVEMENT UNLOCKED").to_s.sub(/\.(jpeg|jpg|png|gif)$/i, '')
   email = params[:email].to_s.sub(/\.(jpeg|jpg|png|gif)$/i, '')
-  achievement(header, achievement, email).to_blob
+  achievement(header, achievement, email:).to_blob
 end
 
 get "/" do
-  I.increment('visit.homepage')
   erb :index
 end

@@ -1,10 +1,9 @@
 source "https://rubygems.org"
-ruby "2.1.5"
+ruby "3.3.5"
 
-gem 'rmagick'
-gem 'faraday'
-gem 'sinatra'
-gem "unicorn"
-gem 'instrumental_agent'
+gem "rmagick"
+gem "http"
+gem "sinatra"
+gem "puma"
 
 gem "foreman", group: "development"

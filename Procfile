@@ -1,2 +1,1 @@
-web: bundle exec unicorn -p $PORT -E $RACK_ENV
-
+web: bin/puma --config config/puma.rb
