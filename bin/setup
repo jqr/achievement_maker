@@ -25,4 +25,6 @@ rbenv version &> /dev/null || (echo "Need rbenv for automated setup" && exit)
 ruby_version=$(sed 's/^ruby-//' < .ruby-version)
 (rbenv versions | grep "$ruby_version" > /dev/null) || rbenv install "$ruby_version" || (brew update && brew upgrade ruby-build; rbenv install "$ruby_version")
 
+bundle install
+
 success=true

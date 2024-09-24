@@ -10,7 +10,6 @@ GEM
     ffi-compiler (1.3.2)
       ffi (>= 1.15.5)
       rake
-    foreman (0.88.1)
     http (5.2.0)
       addressable (~> 2.8)
       base64 (~> 0.1)
@@ -55,7 +54,6 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
-  foreman
   http
   puma
   rmagick
