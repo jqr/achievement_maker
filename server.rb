@@ -1,22 +1,23 @@
-#!/usr/bin/env ruby
-
-require "rubygems"
 require "bundler"
-Bundler.setup(:default)
+Bundler.require(:default, :server)
 
 require "./achievement"
-require "sinatra"
 require "erb"
 
-env = ENV['RACK_ENV'] || 'development'
+env = ENV["RACK_ENV"] || "development"
+
+def remove_image_suffix(value)
+  value.to_s.sub(/\.(jpeg|jpg|png|gif)$/i, "")
+end
 
 get "/xbox/:text" do
+  achievement = remove_image_suffix(params[:text])
+  header = remove_image_suffix(params[:header] || "ACHIEVEMENT UNLOCKED")
+  email = remove_image_suffix(params[:email])
+
+  response["Cache-Control"] = "public, max-age=#{60*24*30}" # 30 day cache
   content_type "image/png"
-  response["Cache-Control"] = "public, max-age=#{60*24*7}" # cache for one week
-  achievement = params[:text].to_s.sub(/\.(jpeg|jpg|png|gif)$/i, '')
-  header = (params[:header] || "ACHIEVEMENT UNLOCKED").to_s.sub(/\.(jpeg|jpg|png|gif)$/i, '')
-  email = params[:email].to_s.sub(/\.(jpeg|jpg|png|gif)$/i, '')
-  achievement(header, achievement, email:).to_blob
+  Achievement.new(achievement:, header:, email:).to_blob
 end
 
 get "/" do

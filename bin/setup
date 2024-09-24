@@ -1,0 +1,28 @@
+#!/bin/bash
+set -e
+cd "$(dirname "$0")/.."
+
+
+function final_message() {
+  echo
+  if [[ "$success" == true ]]; then
+    echo "**************"
+    echo "** Success! **"
+    echo "**************"
+    echo
+    echo "Run the server locally using bin/server or try bin/achievement-maker as a CLI."
+  else
+    echo "***********************"
+    echo "** ERROR, see above. **"
+    echo "***********************"
+  fi
+}
+
+trap final_message EXIT
+
+rbenv version &> /dev/null || (echo "Need rbenv for automated setup" && exit)
+
+ruby_version=$(sed 's/^ruby-//' < .ruby-version)
+(rbenv versions | grep "$ruby_version" > /dev/null) || rbenv install "$ruby_version" || (brew update && brew upgrade ruby-build; rbenv install "$ruby_version")
+
+success=true

@@ -1,0 +1,5 @@
+#!/bin/bash
+set -e
+
+type foreman &> /dev/null || gem install foreman
+foreman start --port 4000

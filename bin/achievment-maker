@@ -1,0 +1,38 @@
+#!/usr/bin/env ruby
+require "bundler"
+Bundler.require
+
+require "optparse"
+require "shellwords"
+
+require_relative "../achievement"
+
+TMP_DIR = File.expand_path(File.dirname(__FILE__) + "/../tmp")
+
+options = { file: "#{TMP_DIR}/image.png" }
+
+parser = OptionParser.new do |p|
+  p.banner = "Usage: #{File.basename($0)} [options] <achievement>\n\n"
+
+  p.on("-h HEADER", "--header HEADER", "Override default header.")
+  p.on("-e EMAIL", "--email EMAIL", "Set email for gravatar loading.")
+  p.on("-f FILE", "--file FILE", "Output to this file, defaults to #{options[:file]}")
+  p.on("--help", "This help.")
+end
+parser.parse!(into: options)
+
+if options[:help] || ARGV.empty?
+  puts parser
+  exit
+end
+
+options[:achievement] = ARGV.first
+
+filename = options.delete(:file)
+
+a = Achievement.new(**options)
+a.write(filename)
+
+puts "Written to #{filename}"
+
+system(Shellwords.join(["open", filename]))
