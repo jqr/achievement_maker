@@ -36,6 +36,8 @@ GEM
       rack (>= 3.0.0, < 4)
     rack-session (2.0.0)
       rack (>= 3.0.0)
+    rack-ssl (1.4.1)
+      rack
     rake (13.2.1)
     rmagick (6.0.1)
       observer (~> 0.1)
@@ -56,6 +58,7 @@ PLATFORMS
 DEPENDENCIES
   http
   puma
+  rack-ssl
   rmagick
   sinatra
 

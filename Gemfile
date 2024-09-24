@@ -7,4 +7,5 @@ gem "http"
 group :server do
   gem "sinatra"
   gem "puma"
+  gem "rack-ssl"
 end
