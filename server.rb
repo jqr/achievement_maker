@@ -15,7 +15,10 @@ get "/xbox/:text" do
   header = remove_image_suffix(params[:header] || "ACHIEVEMENT UNLOCKED")
   email = remove_image_suffix(params[:email])
 
-  response["Cache-Control"] = "public, max-age=#{60*24*30}" # 30 day cache
+  if env == "production"
+    response["Cache-Control"] = "public, max-age=#{60*24*30}" # 30 day cache
+  end
+
   content_type "image/png"
   Achievement.new(achievement:, header:, email:).to_blob
 end
