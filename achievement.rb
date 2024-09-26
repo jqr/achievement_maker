@@ -88,7 +88,7 @@ class Achievement
     player_circle_highlight_inner_radius = player_circle_outer_radius - 7
     draw_circle(draw, radius, radius, player_circle_highlight_inner_radius)
 
-    if email && (avatar = Gravatar.new(email).image_data)
+    if email.to_s.size > 1 && (avatar = Gravatar.new(email).image_data)
       odraw = Magick::Draw.new
       mdraw = Magick::Draw.new
       aimg = Magick::Image.from_blob(avatar).first
