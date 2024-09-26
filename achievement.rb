@@ -35,22 +35,19 @@ class Achievement
     draw.rectangle(radius, 0, width - radius - 1, height)
   end
 
-  def render
-    width = 423
-    height = 67
-
+  def render(width:, height:, scale:)
     draw = Magick::Draw.new
 
     draw.fill(BACKGROUND)
     draw_rounded_area(draw, width, height)
 
     radius = height / 2
-    dark_circle_radius = radius - 4
+    dark_circle_radius = radius - 4 * scale
 
     draw.fill(CIRCLE)
     draw_circle(draw, radius, radius, dark_circle_radius)
 
-    player_circle_outer_radius = dark_circle_radius - 2
+    player_circle_outer_radius = dark_circle_radius - 2 * scale
     draw.fill(CIRLCE_OFF)
     draw_circle(draw, radius, radius, player_circle_outer_radius)
 
@@ -82,10 +79,10 @@ class Achievement
 
     # Crosshair
     draw.fill(CIRCLE_CENTER)
-    crosshair_width = 6
+    crosshair_width = 6 * scale
     draw.rectangle(radius - crosshair_width / 2, radius - player_circle_highlight_outer_radius - 1, radius + crosshair_width / 2, radius * 2 - crosshair_width)
     draw.rectangle(radius - player_circle_highlight_outer_radius - 1, radius - crosshair_width / 2, radius * 2 - crosshair_width, radius + crosshair_width / 2)
-    player_circle_highlight_inner_radius = player_circle_outer_radius - 7
+    player_circle_highlight_inner_radius = player_circle_outer_radius - 7 * scale
     draw_circle(draw, radius, radius, player_circle_highlight_inner_radius)
 
     if email.to_s.size > 1 && (avatar = Gravatar.new(email).image_data)
@@ -95,12 +92,12 @@ class Achievement
       overlay = Magick::Image.new(width, height)
       mask = Magick::Image.new(width, height)
 
-      odraw.composite(radius - player_circle_highlight_outer_radius - 1, radius - player_circle_highlight_outer_radius - 1, 54, 54, aimg)
+      odraw.composite(radius - player_circle_highlight_outer_radius - 1, radius - player_circle_highlight_outer_radius - 1, 54*scale, 54*scale, aimg)
       odraw.draw(overlay)
       mdraw.fill(TRANSPARENT)
       mdraw.rectangle(0, 0, width, height)
       mdraw.fill(FULL_OPACITY)
-      draw_circle(mdraw, radius, radius, 16)
+      draw_circle(mdraw, radius, radius, 16 * scale)
       mdraw.draw(mask)
       mask.alpha(Magick::OffAlphaChannel)
       overlay.alpha(Magick::OnAlphaChannel)
@@ -112,24 +109,33 @@ class Achievement
     draw.fill(WHITE)
 
     draw.font(FONT)
-    draw.font_size(FONT_SIZE)
+    draw.font_size(FONT_SIZE.to_f * scale)
     draw.kerning(FIRST_LINE_KERNING)
-    draw.text(75, 29, first_line)
+    draw.text(75 * scale, 29 * scale, first_line)
 
-    draw.font_size(FONT_SIZE)
+    draw.font_size(FONT_SIZE.to_f * scale)
     draw.kerning(SECOND_LINE_KERNING)
-    draw.text(75, 50, second_line)
+    draw.text(75 * scale, 50 * scale, second_line)
 
-    canvas = Magick::Image.new(width, height) { |c| c.background_color = "none"; c.format = "png" }
-    draw.draw(canvas)
-    canvas
+    draw
   end
 
-  def to_blob
-    render.to_blob
-  end
 
-  def write(filename)
-    render.write(filename)
+  def to_blob(format: "png", scale: 1)
+    width = 423 * scale
+    height = 67 * scale
+
+    canvas = Magick::Image.new(width, height) do |c|
+      if format == "jpeg" || format == "jpg"
+        c.background_color = "#FFFFFF"
+      else
+        c.background_color = "none"
+      end
+      c.format = format
+      c.density = 72 * scale
+    end
+
+    render(width:, height:, scale:).draw(canvas)
+    canvas.to_blob
   end
 end
