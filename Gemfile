@@ -9,3 +9,8 @@ group :server do
   gem "puma"
   gem "rack-ssl"
 end
+
+group :development do
+  gem "guard"
+  gem "guard-shell"
+end
