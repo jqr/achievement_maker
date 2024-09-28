@@ -22,7 +22,8 @@
           encodeURIComponent($("#text").val()) +
           "?header=" + encodeURIComponent($("#header").val()) +
           "&email=" + encodeURIComponent($("#email").val()) +
-          ".png"; // so Campfire will interpret this as an image
+          "&player=" + encodeURIComponent($("#player").val()) +
+          "&ext=.png"; // so URL will end with .png
 
 
         var img = document.createElement("img");
@@ -50,6 +51,19 @@
         <form id="maker">
           <fieldset>
             <div class="clearfix">
+              <label for="player">Player</label>
+              <div class="input">
+                <select id="player">
+                  <option value="1">1st</option>
+                  <option value="2">2nd</option>
+                  <option value="3">3rd</option>
+                  <option value="4">4th</option>
+                  <option value="0">None</option>
+                </select>
+              </div>
+            </div><!-- /clearfix -->
+
+            <div class="clearfix">
               <label for="header">Header</label>
               <div class="input">
                 <input class="xlarge" id="header" name="xlInput" size="30" type="text" value="ACHIEVEMENT UNLOCKED">
@@ -76,9 +90,9 @@
         </form>
 
         <div class="output">
-          <a href="/xbox/Made this thing?email=elijah.miller@gmail.com"><img src="/xbox/Made this thing?email=elijah.miller@gmail.com" /></a><br/><br/>
+          <a href="/xbox/Made this thing?email=elijah.miller@gmail.com&ext=.png"><img src="/xbox/Made this thing?email=elijah.miller@gmail.com&ext=.png" /></a><br/><br/>
 
-          <a href="/xbox/ponies?header=OMG"><img src="/xbox/ponies?header=OMG" /></a>
+          <a href="/xbox/ponies?header=OMG&player=2&ext=.png"><img src="/xbox/ponies?header=OMG&player=2&ext=.png" /></a>
         </div>
 
 

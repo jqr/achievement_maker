@@ -1,0 +1,44 @@
+#!/usr/bin/env ruby
+require "bundler"
+Bundler.require
+
+require "optparse"
+require "shellwords"
+
+require_relative "../achievement"
+
+TMP_DIR = File.expand_path(File.dirname(__FILE__) + "/../tmp")
+
+options = { output: "#{TMP_DIR}/image.png", scale: 1, player: 1 }
+
+parser = OptionParser.new do |p|
+  p.banner = "Usage: #{File.basename($0)} [options] <achievement>\n\n"
+
+  p.on("-h HEADER", "--header HEADER",        "Override default header.")
+  p.on("-e EMAIL",  "--email EMAIL",          "Set email for gravatar loading.")
+  p.on("-f FORMAT", "--format FORMAT",        "Output this format, defaults to detected from output filename")
+  p.on("-o FILE",   "--output FILE",          "Output to this file, defaults to #{options[:output]}")
+  p.on("-s SCALE",  "--scale SCALE", Integer, "Render at this multiple of 72 DPI, defaults to #{options[:scale]}")
+  p.on("-p NUM",    "--player NUM",  Integer, "Highlight player NUM, defaults to #{options[:player]}")
+  p.on("--help",                              "This help.")
+end
+parser.parse!(into: options)
+
+if options[:help] || ARGV.empty?
+  puts parser
+  exit
+end
+
+options[:achievement] = ARGV.first
+
+filename = options.delete(:output)
+format = options.delete(:format) || filename ? File.extname(filename).delete_prefix(".") : "png"
+
+a = Achievement.new(**options)
+File.open(filename, "wb") do |f|
+  f.write(a.to_blob)
+end
+
+puts "Written to #{filename}"
+
+system(Shellwords.join(["open", filename]))
